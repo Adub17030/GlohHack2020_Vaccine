@@ -1,5 +1,55 @@
-"photon": [
+{"photon": [
     {
-        properties:
+        "properties":{
+            "id": 1,
+            "status": "Online",
+            "location": [45,50],
+            "temperature": 69.69,
+            "provider": "AstraXeneca",
+            "inventory": 2500
+        }
+    },
+    {
+        "properties":{
+            "id": 2,
+            "status": "Online",
+            "location": [40,55],
+            "temperature": 42.00,
+            "provider": "AstraXeneca",
+            "inventory": 2500
+        }
+    },
+    {
+        "properties":{
+            "id": 3,
+            "status": "Offline",
+            "location": [40,55],
+            "temperature": 42.00,
+            "provider": "Pfizer",
+            "inventory": 2500
+        }
+    },
+    {
+        "properties":{
+            "id": 4,
+            "status": "Online",
+            "location": [40,55],
+            "temperature": 42.00,
+            "provider": "Pfizer",
+            "inventory": 2500
+        }
+    },
+    {
+        "properties":{
+            "id": 5,
+            "status": "Online",
+            "location": [40,55],
+            "temperature": 42.00,
+            "provider": "AstraXeneca",
+            "inventory": 2500
+        }
     }
+
+
 ]
+}

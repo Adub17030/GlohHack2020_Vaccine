@@ -35,7 +35,9 @@ export default function Tracking() {
         onViewportChange={viewport => { setViewport(viewport);}}
         mapStyle="mapbox://styles/rohanparikh/ckh7x592a0p3b1anw6s7t6bky"
       > 
-      markers here
+      {/* {photon.map(photon => (
+        <Marker key={photon.properties.id} latitude></Marker>
+      ))} */}
       </ReactMapGl>
       </div>
     </div>
