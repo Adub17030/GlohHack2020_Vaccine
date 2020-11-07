@@ -21,20 +21,20 @@ const App = () => {
             social={[
               {
                 name: "Linkedin",
-                url: "https://www.linkedin.com/in/nazeh-taha/",
+                url: "https://www.linkedin.com/in",
                 icon: ["fab", "linkedin-in"],
               },
               {
                 name: "Facebook",
-                url: "https://www.facebook.com/nazeh200/",
+                url: "https://www.facebook.com",
                 icon: ["fab", "facebook-f"],
               },
               {
                 name: "Instagram",
-                url: "https://www.instagram.com/nazeh_taha/",
+                url: "https://www.instagram.com",
                 icon: ["fab", "instagram"],
               },
-              { name: "Twitter", url: "http://nazehtaha.herokuapp.com/", icon: ["fab", "twitter"] }
+              { name: "Twitter", url: "", icon: ["fab", "twitter"] }
             ]}
           />
           <main>
