@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import './App.css';
 import LandingText from './Components/LandingText/LandingText.js';
 import LandingPhoto from './Components/LandingPhoto/LandingPhoto';
+import Home from './Components/Home/Home.js';
+import Tracking from './Components/Tracking/Tracking.js';
 // import Navbar from './Components/Navbar/Navbar';
 import { ReactNavbar } from "react-responsive-animate-navbar";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-
-const App = () => {
-        return(
-            <div>
-            <ReactNavbar
+class App extends Component {
+    render() {
+      return (      
+         <Router>
+          <div>
+          <ReactNavbar
             color="#191919"
-            logo="logo.svg"
+            logo=""
             menu={[
               { name: "HOME", to: "/" },
               { name: "TRACKING", to: "/tracking" },
@@ -37,13 +41,16 @@ const App = () => {
               { name: "Twitter", url: "", icon: ["fab", "twitter"] }
             ]}
           />
-          <main>
-                <LandingText></LandingText>
-                <LandingPhoto></LandingPhoto>
-          </main>
-          </div>
-            
-        );
-}
-
-export default App;
+              <Switch>
+               <Route path="/" component={Home} exact/>
+               <Route path="/tracking" component={Tracking}/>
+               {/* <Route path="/contact" component={Contact}/> */}
+              <Route component={Error}/>
+             </Switch>
+          </div> 
+        </Router>
+      );
+    }
+  }
+   
+  export default App;
