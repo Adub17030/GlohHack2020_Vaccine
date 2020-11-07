@@ -24,16 +24,26 @@ http_response_t response;
 #define MIC_INPUT A0
  
 Adafruit_NeoPixel pixels(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);	// Create out “ring” object	
- 
-int pixelCounter = 0;                       // Used for choosing a specific LED
-bool too_high = false;
+int LED = D3; // LED connected to digital pin D3
+int analogPin = 2; // potentiometer connected to analog pin A0
+int pixelCounter = 0; // Used for choosing a specific LED
 
-int LED = D3;              // LED connected to digital pin D3
-int analogPin = 2;       // potentiometer connected to analog pin A0
+//constants
+double status = 1;
+double id = 1;
+double upperTemp = 100; //set up upper bound of 100 deg
+double lowerTemp = 80; //set up lower bound of 80 deg
+double vaccineCount = 690;
+double longitude = 42.2959;
+double latitude = 71.7128;
+String provider = "AstraXeneca"
+
+double too_high = 0;
+double too_low = 0;
 double val = 0;        // variable to store the read values
-double temp_max = 86; //max temp desired
-double temp;
 
+double photonVar [10] = {status,id,0.0,upperTemp,lowerTemp,0.0,0.0,vaccineCount,longitude,latitude}
+// 0:status, 1:id, 2:temp, 3:uppertemp, 4:lowerTemp, 5:too_high, 6:too_low, 7:vaccineCount, 8:longitude, 9:latitude
 
  void switch_color(int c1, int c2, int c3){
   // The first NeoPixel in a strand is #0, second is 1, all the way up
@@ -43,8 +53,6 @@ double temp;
     // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
     // Here we're using a moderately bright green color:
     pixels.setPixelColor(i, pixels.Color(c1, c2, c3));
-
-  
     
   } pixels.show();
       // Send the updated pixel colors to the hardware.
@@ -56,8 +64,8 @@ void setup()
 	pinMode(PIXEL_PIN, OUTPUT);      // sets the ledPin as output
 	pixels.begin();
 	pixels.setBrightness(150);  
-	Particle.variable("temp", temp);
-	Particle.variable("too_high", too_high);
+	Particle.variable("photonVar",photonVar)
+	Particle.variable("provider",provider)
 }
 
 void loop()
@@ -68,17 +76,29 @@ void loop()
 	double Tc = 0.0195;
 	double Voc = 0.4;
 	temp = (voltage-0.4)/Tc;
-	temp = temp*1.8 +32 -40; // C -> F
-	if(temp>82.5){
-	    switch_color(255, 0, 0);
-	    too_high = true;
-	    Serial.println(temp);
+	photonVar[2] = temp*1.8 +32 -40; // C -> F
+
+	if(photonVar[2] > photonVar[3]){ //Too Hot
+		photonVar[5] = 1; //too_high = true
+		photonVar[6] = 0; //too_low = false
+		switch_color(255,0,0); //bad red
+		Serial.println(photonVar[2])
+	}
+	else if (photonVar[2] > photonVar[4]){ //Normal Temp
+		photonVar[5] = 0; //too_high = false
+		photonVar[6] = 0; //too_low = false
+		switch_color(0,255,0); //happy green
+		Serial.println(photonVar[2])
+	}
+	else{ //Too Cold
+		photonVar[5] = 0; //too_high = false
+		photonVar[6] = 1; //too_low = true
+		switch_color(0,0,255); //bad blue
+		Serial.println(photonVar[2])
 	}
 	delay(100);
     
 }
-
-
 
 
 
