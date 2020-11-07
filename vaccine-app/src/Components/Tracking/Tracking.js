@@ -3,9 +3,9 @@ import './Tracking.css';
 import LandingText from '../LandingText/LandingText.js';
 import LandingPhoto from '../LandingPhoto/LandingPhoto';
 import ReactMapGl, {Marker} from 'react-map-gl';
-
+import * as p from "./testData.json"
 // import Navbar from './Components/Navbar/Navbar';
-
+import Syringe from '../../syringe.png';
     // support rendering markers with simple data
     
     // simple component usage
@@ -34,10 +34,16 @@ export default function Tracking() {
         mapboxApiAccessToken="pk.eyJ1Ijoicm9oYW5wYXJpa2giLCJhIjoiY2toN3dxaDgwMGN6bDJxbzQ2Mm8xcGY5eCJ9.U_uG-acBkynQ1tk7lfSIJw"
         onViewportChange={viewport => { setViewport(viewport);}}
         mapStyle="mapbox://styles/rohanparikh/ckh7x592a0p3b1anw6s7t6bky"
-      > 
-      {/* {photon.map(photon => (
-        <Marker key={photon.properties.id} latitude></Marker>
-      ))} */}
+      >
+      
+      {p.photon.map(photon => (
+        <Marker key={1} latitude={45.4211} longitude={-75.6903}>
+          <button class="marker-btn">
+            <img src={Syringe} alt="Syringe"/>
+          </button>
+        
+        </Marker>
+       ))}
       </ReactMapGl>
       </div>
     </div>
