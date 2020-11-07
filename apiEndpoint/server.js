@@ -76,38 +76,23 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.get('/photon', function (req, res) {
+app.get('/photon/:var', function (req, res) {
     particle
         .getVariable({
             deviceId: process.env.Device_Id,
-            name: 'temp',
+            name: req.params.var,
             auth: token,
         })
         .then(
             function (data) {
                 MongoDbUpdate(data, 'IotData');
+                res.send(data);
                 console.log('Device variable retrieved successfully:', data);
             },
             function (err) {
                 console.log('An error occurred while getting attrs:', err);
             }
         );
-    MongoClient.connect(
-        url,
-        { useNewUrlParser: true, useUnifiedTopology: true },
-        function (err, db) {
-            if (err) throw err;
-            var dbo = db.db('HackVaccDb');
-            var myquery = { _id: 1 };
-            dbo.collection('IotData')
-                .find(myquery)
-                .toArray(function (err, result) {
-                    if (err) throw err;
-                    res.send(result);
-                    db.close();
-                });
-        }
-    );
 });
 
 app.get('/FeedbackUserReport', function (req, res) {});
