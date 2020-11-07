@@ -28,3 +28,13 @@
   .map-column{
     border-radius: 15px;
   }
+
+
+  .popup-div {
+    border-radius:10px;
+    padding: 10px;
+    justify-content: left;
+    margin-right:75px;
+    display: flex;
+    flex-direction: column;
+  }
