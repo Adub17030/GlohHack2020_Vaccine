@@ -8,17 +8,7 @@ import * as p from "./testData.json"
 import Syringe from '../../syringe.png';
     // support rendering markers with simple data
     
-    // simple component usage
-function getPhotonData(){
-// temp is double
-// tooHigh boolean - but int
-// coord 0 - double
-// coord 1 - double
-// id - int
-// provider - string
-// inventory - integer
-// status - string
-}
+
 
 export default function Tracking() {
        
@@ -32,6 +22,28 @@ export default function Tracking() {
 
     const [selectedShipment, setSelectedShipment] = useState(null)
 
+    
+    
+    const [phantomData, setphantomData] = useState(null)
+    function getPhotonData(param){
+      // temp is double
+      // tooHigh boolean - but int
+      // coord 0 - double
+      // coord 1 - double
+      // id - int
+      // provider - string
+      // inventory - integer
+      // status - string
+      fetch(`https://vtack-api-glohack.herokuapp.com/photon/${param}`)
+      .then(response => response.json())
+      .then(data => {
+        setphantomData(data)
+        //console.log(data)
+      }
+        );
+
+    }
+
     useEffect(() => {
       const listener = (e) => {
         if (e.key === "Escape") {
@@ -39,6 +51,8 @@ export default function Tracking() {
         }
 
       };
+      getPhotonData("status");
+      console.log(phantomData)
       window.addEventListener("keydown", listener);
 
       return () => {
@@ -61,7 +75,7 @@ export default function Tracking() {
       
 
       {p.photon.map(photon => (
-        <Marker key={1} latitude={45.4211} longitude={-75.6903}>
+        <Marker key={1} latitude={photon.properties.location[0]} longitude={photon.properties.location[1]}>
           <button class="marker-btn" onClick={(e) => {
             e.preventDefault();
             setSelectedShipment(photon);
@@ -80,7 +94,7 @@ export default function Tracking() {
 
          <div className="popup-div">
            <h2>Good Morning</h2>
-           <p>test Works</p>
+           <p>test</p>
            <p></p>
             <p></p>
          </div>
