@@ -15,11 +15,11 @@ const LandingText = () => {
              {/* <p>If you are a representative of an organization involved with COVID-19 vaccine distribution, contact us here or submit a registration form.</p> */}
              <div className='buttons'>
                 <div className='btn'>
-                    <button>Contact Us</button>
+                    <button className='landing-butt'>Contact Us</button>
                     {/* <p>Yes</p> */}
                 </div>
-                <div className='btn'>
-                    <button>Sign-In</button>
+                <div>
+                    <button className='landing-butt'>Sign-In</button>
                     {/* <p>Yes</p> */}
                 </div>
              </div>
