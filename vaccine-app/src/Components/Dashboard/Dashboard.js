@@ -35,7 +35,7 @@ const darkTheme = createMuiTheme({
 
 const useStyles = makeStyles((darkTheme) => ({
     root: {
-      flexGrow: 1,
+      
     },
     paper: {
       padding: darkTheme.spacing(2),
@@ -55,7 +55,7 @@ export default function Dashboard() {
   return (
     <main className="dash-main">
     <div className={classes.root}>
-     <Grid container spacing={3}>
+     <Grid container spacing={0}>
         <Grid item xs={12}>
         <ThemeProvider theme={darkTheme}>
           <Paper className={classes.paper}>

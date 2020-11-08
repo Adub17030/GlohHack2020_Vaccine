@@ -7,11 +7,24 @@ import * as p from './testData.json';
 // import Navbar from './Components/Navbar/Navbar';
 import Syringe from '../../syringe.png';
 // support rendering markers with simple data
+import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+
+
+function checkStatus(status){
+  if (status) {
+    return "Online";
+  }
+  else{
+    return "Offline";
+  }
+}
+
 
 export default function Tracking() {
     const [viewport, setViewport] = useState({
-        latitude: 45.4211,
-        longitude: -75.6903,
+        latitude: 42.2959,
+        longitude: -71.71280,
         width: '100vw',
         height: '100vh',
         zoom: 10,
@@ -124,17 +137,15 @@ export default function Tracking() {
                                         }}
                                     >
                                         <div className="popup-div">
-                                            <h2>Vtrack - Id#:{1}</h2>
-                                            <p style={{ color: 'black' }}>
-                                                {JSON.stringify([
-                                                    phantomTempData,
-                                                    phantomInventData,
-                                                    phantomProviderData,
-                                                    phantomStatusData,
-                                                ])}
-                                            </p>
-                                            <p></p>
-                                            <p></p>
+                                            <h2>V-Track:{1}</h2>
+                
+                                            <Chip label={"Temp: " + phantomTempData.toFixed(2) + " F°"} color="dark" />
+                                            <Divider variant="middle" />
+                                            <Chip label={"Inventory: " + phantomInventData + " Vaccines"} color="dark" />
+                                            <Divider variant="middle" />
+                                            <Chip label={"Provider: " + phantomProviderData} />
+                                            <Divider variant="middle" />
+                                            <Chip label={"Status: " + checkStatus(phantomStatusData)} />
                                         </div>
                                     </Popup>
                                 ) : null}
@@ -142,7 +153,7 @@ export default function Tracking() {
                         </div>
                     </div>
                     <div class="column">
-                        <div class="green-column">Some Text in Column Two</div>
+                       
                     </div>
                 </div>
             </section>

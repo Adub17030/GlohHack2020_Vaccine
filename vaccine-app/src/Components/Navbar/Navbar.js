@@ -4,6 +4,7 @@ import ReactNavbar from "react-responsive-animate-navbar";
 class Navbar extends Component {
   render() {
     return (
+    <div>
       <ReactNavbar
         color="rgb(25, 25, 25)"
         logo="https://svgshare.com/i/KHh.svg"
@@ -36,6 +37,7 @@ class Navbar extends Component {
           },
         ]}
       />
+      </div>
     );
   }
 }

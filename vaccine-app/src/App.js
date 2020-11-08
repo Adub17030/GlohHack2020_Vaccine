@@ -5,6 +5,7 @@ import LandingPhoto from './Components/LandingPhoto/LandingPhoto';
 import Home from './Components/Home/Home.js';
 import Tracking from './Components/Tracking/Tracking.js';
 import Dashboard from './Components/Dashboard/Dashboard.js';
+import UserFeedback from './Components/UserFeedback/UserFeedback.js'
 // import Navbar from './Components/Navbar/Navbar';
 import { ReactNavbar } from "react-responsive-animate-navbar";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -21,7 +22,7 @@ class App extends Component {
               { name: "HOME", to: "/" },
               { name: "TRACKING", to: "/tracking" },
               { name: "DASHBOARD", to: "/dashboard" },
-              { name: "ABOUT US", to: "/aboutus" },
+              { name: "FEEDBACK", to: "/feedback" },
             ]}
             social={[
               {
@@ -46,7 +47,7 @@ class App extends Component {
                <Route path="/" component={Home} exact/>
                <Route path="/tracking" component={Tracking}/>
                <Route path="/dashboard" component={Dashboard}/>
-
+               <Route path="/feedback" component={UserFeedback}/>
                {/* <Route path="/contact" component={Contact}/> */}
               <Route component={Error}/>
              </Switch>

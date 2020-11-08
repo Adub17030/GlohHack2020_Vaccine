@@ -33,10 +33,20 @@
     .panel-positions {
       grid-column: span 1;
     }
+
+    .dash-main {
+      padding-top:40vh;
+    }
   }
+@media (max-height: 500px) {
   .dash-main {
+    padding-top:40vh;
+  }
+}
+
+.dash-main {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 85vh; /* full viewheight */
+    height: 120vh; /* full viewheight */
 }
