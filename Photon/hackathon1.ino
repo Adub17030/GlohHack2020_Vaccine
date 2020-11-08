@@ -22,28 +22,34 @@ http_response_t response;
 #define PIXEL_PIN D0						// Ring uses D6 as default pin
 #define PIXEL_TYPE WS2812B					// Ring uses WS2812 Pixels
 #define MIC_INPUT A0
+
+#define ID 99
+#define PROVIDER "BROWN_JESUS_INC"
+#define INVENTORY 50
  
 Adafruit_NeoPixel pixels(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);	// Create out “ring” object	
-int LED = D3; // LED connected to digital pin D3
-int analogPin = 2; // potentiometer connected to analog pin A0
-int pixelCounter = 0; // Used for choosing a specific LED
+ 
+int pixelCounter = 0;                       // Used for choosing a specific LED
+bool too_high = false;
 
-//constants
-double status = 1;
-double id = 1;
-double upperTemp = 100; //set up upper bound of 100 deg
-double lowerTemp = 80; //set up lower bound of 80 deg
-double vaccineCount = 690;
-double longitude = 42.2959;
-double latitude = 71.7128;
-String provider = "AstraXeneca"
-
-double too_high = 0;
-double too_low = 0;
+int LED = D3;              // LED connected to digital pin D3
+int analogPin = 2;       // potentiometer connected to analog pin A0
 double val = 0;        // variable to store the read values
+double temp_max = 86; //max temp desired
+double temp;
+int minutes = 0;
+double data_array[144][2]; // 2 data points stored every 20 minutes for 24 hours then reset
+int data_count = 0;
+int data_count2 = 0;
 
-double photonVar [10] = {status,id,0.0,upperTemp,lowerTemp,0.0,0.0,vaccineCount,longitude,latitude}
-// 0:status, 1:id, 2:temp, 3:uppertemp, 4:lowerTemp, 5:too_high, 6:too_low, 7:vaccineCount, 8:longitude, 9:latitude
+double coords0 = 52.708172;
+double coords1 = -2.754320;
+int status = WiFi.RSSI(); //returns -127 to -1, indicating signal strength
+
+
+
+
+
 
  void switch_color(int c1, int c2, int c3){
   // The first NeoPixel in a strand is #0, second is 1, all the way up
@@ -53,10 +59,20 @@ double photonVar [10] = {status,id,0.0,upperTemp,lowerTemp,0.0,0.0,vaccineCount,
     // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
     // Here we're using a moderately bright green color:
     pixels.setPixelColor(i, pixels.Color(c1, c2, c3));
+
+  
     
   } pixels.show();
       // Send the updated pixel colors to the hardware.
 }
+//add time stuff
+//add array stuff
+//status
+//id
+//location
+//temperature
+//provider
+//inventory
 
 void setup()
 {
@@ -64,41 +80,61 @@ void setup()
 	pinMode(PIXEL_PIN, OUTPUT);      // sets the ledPin as output
 	pixels.begin();
 	pixels.setBrightness(150);  
-	Particle.variable("photonVar",photonVar)
-	Particle.variable("provider",provider)
+	Particle.variable("temp", temp);
+	Particle.variable("too_high", too_high);
+	
+	Particle.variable("coords0", coords0);
+	Particle.variable("coords1", coords1);
+	Particle.variable("id", ID);
+	Particle.variable("provider", PROVIDER);
+	Particle.variable("inventory", INVENTORY);
+	Particle.variable("status", status);
+	//Particle.variable("data_collection", data_array);
+	
+	Time.zone(-4);
+	Particle.syncTime();
 }
 
 void loop()
 {
+    status = WiFi.RSSI();
 	val = analogRead(analogPin);  // read the analogPin values go from 0 to 4095
 	//analogWrite(LED, val/16);  // Generate PWM from values from 0 to 255
-	double voltage = val/4096*4.64;
+	double voltage = val/4098*5;
 	double Tc = 0.0195;
 	double Voc = 0.4;
 	temp = (voltage-0.4)/Tc;
-	photonVar[2] = temp*1.8 +32 -40; // C -> F
+	temp = temp*1.8; // C -> F
+	if(temp>85){
+	    switch_color(255, 0, 0);
+	    too_high = true;
+	   
+	}
+	 //Serial.println(temp);
+	Serial.println(Time.hour()); //returns hour number 0-23
+	minutes = Time.minute(); //returns minute 0-59
+	double data_point[] = {minutes, temp};
+	if(minutes % 20 == 0){
+	    int data_point[] = {minutes, temp};
+	    if(data_count<144){
+	        
+	        data_array[data_count][0] = data_point[0];
+	        data_array[data_count][1] = data_point[1];
+	    }
+	    else{
+	        data_count = 0;
+	        data_array[data_count][0] = data_point[0];
+	        data_array[data_count][1] = data_point[1];
+	    }
 
-	if(photonVar[2] > photonVar[3]){ //Too Hot
-		photonVar[5] = 1; //too_high = true
-		photonVar[6] = 0; //too_low = false
-		switch_color(255,0,0); //bad red
-		Serial.println(photonVar[2])
 	}
-	else if (photonVar[2] > photonVar[4]){ //Normal Temp
-		photonVar[5] = 0; //too_high = false
-		photonVar[6] = 0; //too_low = false
-		switch_color(0,255,0); //happy green
-		Serial.println(photonVar[2])
-	}
-	else{ //Too Cold
-		photonVar[5] = 0; //too_high = false
-		photonVar[6] = 1; //too_low = true
-		switch_color(0,0,255); //bad blue
-		Serial.println(photonVar[2])
-	}
-	delay(100);
+	
+	
+	delay(30000); //30 seconds
     
 }
+
+
 
 
 
