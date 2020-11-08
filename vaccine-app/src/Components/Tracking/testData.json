@@ -3,7 +3,7 @@
         "properties":{
             "id": 1,
             "status": "Online",
-            "location": [30,50],
+            "location": [42.2959,-71.71280],
             "temperature": 69.69,
             "provider": "AstraXeneca",
             "inventory": 2500
@@ -13,7 +13,7 @@
         "properties":{
             "id": 2,
             "status": "Online",
-            "location": [35,55],
+            "location": [37.7749,-122],
             "temperature": 42.00,
             "provider": "AstraXeneca",
             "inventory": 2500
@@ -23,7 +23,7 @@
         "properties":{
             "id": 3,
             "status": "Offline",
-            "location": [40,55],
+            "location": [30,-95],
             "temperature": 42.00,
             "provider": "Pfizer",
             "inventory": 2500
@@ -33,7 +33,7 @@
         "properties":{
             "id": 4,
             "status": "Online",
-            "location": [73,55],
+            "location": [40.7128,-74.0060],
             "temperature": 42.00,
             "provider": "Pfizer",
             "inventory": 2500
@@ -43,12 +43,31 @@
         "properties":{
             "id": 5,
             "status": "Online",
-            "location": [80,55],
+            "location": [36.1699,-115.1398],
+            "temperature": 42.00,
+            "provider": "AstraXeneca",
+            "inventory": 2500
+        }
+    },
+    {
+        "properties":{
+            "id": 5,
+            "status": "Online",
+            "location": [40,-99],
+            "temperature": 42.00,
+            "provider": "AstraXeneca",
+            "inventory": 2500
+        }
+    },
+    {
+        "properties":{
+            "id": 5,
+            "status": "Online",
+            "location": [46,-103],
             "temperature": 42.00,
             "provider": "AstraXeneca",
             "inventory": 2500
         }
     }
-
 ]
 }
