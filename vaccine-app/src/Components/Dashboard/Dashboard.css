@@ -38,5 +38,5 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 60vh; /* full viewheight */
+    height: 85vh; /* full viewheight */
 }
