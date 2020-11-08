@@ -4,6 +4,7 @@ import LandingText from './Components/LandingText/LandingText.js';
 import LandingPhoto from './Components/LandingPhoto/LandingPhoto';
 import Home from './Components/Home/Home.js';
 import Tracking from './Components/Tracking/Tracking.js';
+import Dashboard from './Components/Dashboard/Dashboard.js';
 // import Navbar from './Components/Navbar/Navbar';
 import { ReactNavbar } from "react-responsive-animate-navbar";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -19,7 +20,7 @@ class App extends Component {
             menu={[
               { name: "HOME", to: "/" },
               { name: "TRACKING", to: "/tracking" },
-              { name: "FEEDBACK", to: "/feedback" },
+              { name: "DASHBOARD", to: "/dashboard" },
               { name: "ABOUT US", to: "/aboutus" },
             ]}
             social={[
@@ -44,6 +45,8 @@ class App extends Component {
               <Switch>
                <Route path="/" component={Home} exact/>
                <Route path="/tracking" component={Tracking}/>
+               <Route path="/dashboard" component={Dashboard}/>
+
                {/* <Route path="/contact" component={Contact}/> */}
               <Route component={Error}/>
              </Switch>

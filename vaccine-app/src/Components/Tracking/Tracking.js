@@ -46,7 +46,6 @@ export default function Tracking() {
       };
     }, []);
 
-
     return(
             <main>
             <section>
